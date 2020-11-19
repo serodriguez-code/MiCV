@@ -4,18 +4,18 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>dad.NOMBRE</groupId>
-	<artifactId>NOMBRE</artifactId>
+	<groupId>dad.miCV</groupId>
+	<artifactId>MiCV</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>NOMBRE</name>
-	<description>DESCRIPCION</description>
+	<name>MiCV</name>
+	<description>MiCV</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>14</maven.compiler.target>
 		<maven.compiler.source>14</maven.compiler.source>
-		<exec.mainClass>dad.NOMBRE.app.Main</exec.mainClass>
+		<exec.mainClass>dad.miCV.app.Main</exec.mainClass>
 	</properties>
 
 	<dependencies>
@@ -28,6 +28,11 @@
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>14.0.1</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.hildan.fxgson</groupId>
+		  <artifactId>fx-gson</artifactId>
+		  <version>4.0.0</version>
 		</dependency>
 	</dependencies>
 </project>

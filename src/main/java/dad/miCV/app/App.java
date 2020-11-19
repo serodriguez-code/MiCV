@@ -1,6 +1,6 @@
-package dad.nombre.app;
+package dad.miCV.app;
 
-import dad.nombre.controller.Controller;
+import dad.miCV.controller.MainController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -8,18 +8,18 @@ import javafx.stage.Stage;
 
 public class App extends Application{
 
-	private Controller controller;
+	private MainController controller;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		controller=new Controller();
+		controller=new MainController();
 		
-		Scene scene=new Scene(controller.getView(),320,200);
+		Scene scene=new Scene(controller.getView());
 		
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("CAMBIAME EL TÍTULO EN APP!!!!!!!!!!!!!!!!!!!!");
-		primaryStage.getIcons().add(new Image("images/eclipse-icon-32px.png"));
+		primaryStage.setTitle("MiCV");
+		primaryStage.getIcons().add(new Image("images/cv64x64.png"));
 		primaryStage.show();
 		
 	}
