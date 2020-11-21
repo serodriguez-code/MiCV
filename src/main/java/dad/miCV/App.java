@@ -1,6 +1,5 @@
-package dad.miCV.app;
+package dad.miCV;
 
-import dad.miCV.controller.MainController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -15,7 +14,7 @@ public class App extends Application{
 		
 		controller=new MainController();
 		
-		Scene scene=new Scene(controller.getView());
+		Scene scene=new Scene(controller.getView(),1000,800);
 		
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("MiCV");

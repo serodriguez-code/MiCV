@@ -1,4 +1,4 @@
-package dad.miCV.app;
+package dad.miCV;
 
 public class Main {
 

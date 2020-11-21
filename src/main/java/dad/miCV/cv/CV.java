@@ -1,9 +1,10 @@
-package dad.miCV.model;
+package dad.miCV.cv;
 
 import org.hildan.fxgson.FxGson;
 
 import com.google.gson.Gson;
 
+import dad.miCV.personal.Personal;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 

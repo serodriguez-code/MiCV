@@ -1,7 +1,8 @@
-package dad.miCV.model;
+package dad.miCV.personal;
 
 import java.time.LocalDate;
 
+import dad.miCV.nacionalidad.Nacionalidad;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -17,6 +18,7 @@ public class Personal {
 	private StringProperty nombre=new SimpleStringProperty();
 	private StringProperty apellidos=new SimpleStringProperty();
 	private ObjectProperty <LocalDate> fechaNacimiento=new SimpleObjectProperty<LocalDate>();
+	private StringProperty direccion=new SimpleStringProperty();
 	private StringProperty codigoPostal=new SimpleStringProperty();
 	private StringProperty localidad=new SimpleStringProperty();
 	private StringProperty pais=new SimpleStringProperty();
@@ -118,6 +120,21 @@ public class Personal {
 	public final void setNacionalidades(final ObservableList<Nacionalidad> nacionalidades) {
 		this.nacionalidadesProperty().set(nacionalidades);
 	}
+
+	public final StringProperty direccionProperty() {
+		return this.direccion;
+	}
+	
+
+	public final String getDireccion() {
+		return this.direccionProperty().get();
+	}
+	
+
+	public final void setDireccion(final String direccion) {
+		this.direccionProperty().set(direccion);
+	}
+	
 	
 	
 	

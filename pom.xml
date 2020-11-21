@@ -15,7 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>14</maven.compiler.target>
 		<maven.compiler.source>14</maven.compiler.source>
-		<exec.mainClass>dad.miCV.app.Main</exec.mainClass>
+		<exec.mainClass>dad.miCV.Main</exec.mainClass>
 	</properties>
 
 	<dependencies>
@@ -33,6 +33,11 @@
 		  <groupId>org.hildan.fxgson</groupId>
 		  <artifactId>fx-gson</artifactId>
 		  <version>4.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.8.0</version>
 		</dependency>
 	</dependencies>
 </project>

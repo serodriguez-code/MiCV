@@ -1,4 +1,4 @@
-package dad.miCV.model;
+package dad.miCV.nacionalidad;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
