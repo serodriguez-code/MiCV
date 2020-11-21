@@ -39,7 +39,7 @@ import javafx.stage.Stage;
 
 public class MainController implements Initializable {
 
-	File currentCvFile;
+	private File currentCvFile;
 	
 	//Sub-Controllers
 	private PersonalController personalController=new PersonalController();
@@ -81,17 +81,19 @@ public class MainController implements Initializable {
 
 	}
 	
+	/**
+	 * Al detectar un cambio de cv desbindea los controladores antiguos
+	 * y bindea los nuevos
+	 */
 	private void onCVChanged(ObservableValue<? extends CV> o, CV ov, CV nv) {
-		
-		//Desbindea el personalProperty del modelo antiguo si lo hubiese
 		if(ov !=null) {
 			personalController.personalProperty().unbind();
-		//FALTA DESBINDEAR EL RESTO DE CONTROLADORES
+		//TODO Desbindear el resto de controller
 			
 		}
-		//Hace un bindeo del personalProperty de personalController con un modelo de tipo Personal
 		if(nv!=null) { 
 			personalController.personalProperty().bind(nv.personalProperty());
+		//TODO Bindear el resto de controller
 		}
 	}
 	
@@ -147,18 +149,25 @@ public class MainController implements Initializable {
 				e.printStackTrace();
 			}
     	}
+    	if(currentCvFile!=null) 
+    		curriculumGuardado();
+    		
+    	
     }
 
+
+    
     @FXML
     private void onGuardarComoAction(ActionEvent event){
     	guardarComo();
     }
     
     private void guardarComo() {
+    	currentCvFile=null;
     	Stage stage=(Stage)view.getScene().getWindow();
     	FileChooser fileChooser=new FileChooser();
     	fileChooser.setTitle("Guardar un curriculum");
-    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Curriculum Vitae (*.cv)",".cv"));
+    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Curriculum Vitae (*.cv)","*.cv"));
     	fileChooser.getExtensionFilters().add(new ExtensionFilter("Todos los archivos","*.*"));
     	currentCvFile=fileChooser.showSaveDialog(stage);
     	
@@ -170,8 +179,15 @@ public class MainController implements Initializable {
 				e.printStackTrace();
 			}
     	}
+    	if(currentCvFile!=null)
+    		curriculumGuardado();
     }
-
+    private void curriculumGuardado() {
+		Alert alert=new Alert(AlertType.INFORMATION);
+		alert.setTitle("Curriculum guardado");
+		alert.setHeaderText("Su curriculum ha sido guardado");
+		alert.showAndWait();
+    }
     @FXML
     /**
      * Muestra una alerta de tipo confirmación.
@@ -179,6 +195,7 @@ public class MainController implements Initializable {
      * @param event
      */
     private void onNuevoAction(ActionEvent event) {
+    	currentCvFile=null;
     	Alert alert=nuevoAlerta();
     	Optional<ButtonType>result=alert.showAndWait();
     	if(result.get()==ButtonType.OK)
