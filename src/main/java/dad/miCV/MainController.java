@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import dad.miCV.conocimiento.ConocimientoController;
+import dad.miCV.contacto.ContactoController;
 import dad.miCV.cv.CV;
 import dad.miCV.experiencia.ExperienciaController;
 import dad.miCV.formacion.FormacionController;
@@ -43,7 +44,7 @@ public class MainController implements Initializable {
 	
 	//Sub-Controllers
 	private PersonalController personalController=new PersonalController();
-//	private ContactoController contactoController=new ContactoController();
+	private ContactoController contactoController=new ContactoController();
 	private FormacionController formacionController=new FormacionController();
 	private ExperienciaController experienciaController=new ExperienciaController();
 	private ConocimientoController conocimientoController=new ConocimientoController();
@@ -71,7 +72,7 @@ public class MainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		personalTab.setContent(personalController.getView());
-//		contactoTab.setContent(contactoController.getView());
+		contactoTab.setContent(contactoController.getView());
 		formacionTab.setContent(formacionController.getView());
 		experienciaTab.setContent(experienciaController.getView());
 		conocimientosTab.setContent(conocimientoController.getView());
