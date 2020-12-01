@@ -1,4 +1,4 @@
-package dad.miCV.email;
+package dad.miCV.contacto;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

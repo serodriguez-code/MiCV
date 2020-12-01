@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import dad.miCV.nacionalidad.Nacionalidad;
-
 import javafx.fxml.Initializable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -48,8 +46,6 @@ public class PersonalController implements Initializable {
 	
 	@FXML
 	private Button nuevaNacionalidadB,borrarNacionalidadB;
-
-
 	
 	public PersonalController() throws IOException{
 		FXMLLoader loader=new FXMLLoader(getClass().getResource("/fxml/PersonalView.fxml"));
@@ -59,9 +55,7 @@ public class PersonalController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		personal.addListener((o,ov,nv)->onPersonalChanged(o,ov,nv));
-		
+		personal.addListener((o,ov,nv)->onPersonalChanged(o,ov,nv));	
 	}
 	
     private void onPersonalChanged(ObservableValue<? extends Personal> o, Personal ov, Personal nv) {
@@ -76,9 +70,7 @@ public class PersonalController implements Initializable {
     		direccionTA.textProperty().unbindBidirectional(ov.direccionProperty());
     		paisCB.valueProperty().unbindBidirectional(ov.paisProperty());
     		nacionalidadesLV.itemsProperty().unbindBidirectional(ov.nacionalidadesProperty());
-    	}
-    	
-    	
+    	}	
     	if(nv!=null) {
     		identificacionTF.textProperty().bindBidirectional(nv.identificacionProperty());
     		nombreTF.textProperty().bindBidirectional(nv.nombreProperty());
@@ -90,7 +82,6 @@ public class PersonalController implements Initializable {
     		paisCB.valueProperty().bindBidirectional(nv.paisProperty());
     		nacionalidadesLV.itemsProperty().bindBidirectional(nv.nacionalidadesProperty());
     	}
-    	
 	}
 
 	@FXML
@@ -105,20 +96,16 @@ public class PersonalController implements Initializable {
     
     public GridPane getView() {
     	return this.view;
-    }
-
-    
-    
+    }   
+   
 	public final ObjectProperty<Personal> personalProperty() {
 		return this.personal;
 	}
 	
-
 	public final Personal getPersonal() {
 		return this.personalProperty().get();
 	}
 	
-
 	public final void setPersonal(final Personal personal) {
 		this.personalProperty().set(personal);
 	}

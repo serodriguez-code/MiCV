@@ -15,10 +15,10 @@
          <content>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
-                  <TableView fx:id="telefonosTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
+                  <TableView fx:id="telefonosTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                     <columns>
-                      <TableColumn fx:id="numeroColumn" prefWidth="120.0" text="Numero" />
-                        <TableColumn fx:id="tipoColumn" prefWidth="120.0" text="Tipo" />
+                      <TableColumn fx:id="numeroColumn" prefWidth="200.0" text="Numero" />
+                      <TableColumn fx:id="tipoColumn" prefWidth="200.0" text="Tipo" />
                     </columns>
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" top="5.0" />
@@ -41,9 +41,9 @@
          <content>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
-                  <TableView fx:id="correoTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
+                  <TableView fx:id="correoTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                      <columns>
-                        <TableColumn fx:id="emailColumn" prefWidth="67.0" text="E-mail" />
+                        <TableColumn fx:id="emailColumn" prefWidth="500.0" text="E-mail" />
                      </columns>
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" top="5.0" />
@@ -66,9 +66,9 @@
          <content>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
-                  <TableView fx:id="webTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
+                  <TableView fx:id="webTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                      <columns>
-                        <TableColumn fx:id="urlColumn" prefWidth="294.0" text="URL" />
+                        <TableColumn fx:id="urlColumn" prefWidth="500.0" text="URL" />
                      </columns>
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" top="5.0" />

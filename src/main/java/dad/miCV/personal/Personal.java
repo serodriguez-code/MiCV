@@ -2,7 +2,6 @@ package dad.miCV.personal;
 
 import java.time.LocalDate;
 
-import dad.miCV.nacionalidad.Nacionalidad;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;

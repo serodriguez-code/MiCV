@@ -88,13 +88,20 @@ public class MainController implements Initializable {
 	 */
 	private void onCVChanged(ObservableValue<? extends CV> o, CV ov, CV nv) {
 		if(ov !=null) {
+			//TODO desbindear controladores
 			personalController.personalProperty().unbind();
-		//TODO Desbindear el resto de controller
-			
+//			contactoController.contactoProperty().unbind();
+			formacionController.formacionesProperty().unbind();
+			experienciaController.experienciasProperty().unbind();
+//			conocimientoController.conocimientoProperty().unbind();
 		}
 		if(nv!=null) { 
+			//TODO bindear controladores
 			personalController.personalProperty().bind(nv.personalProperty());
-		//TODO Bindear el resto de controller
+//			contactoController.contactoProperty().bind(nv.contactoProperty());
+			formacionController.formacionesProperty().bind(nv.formacionesProperty());
+			experienciaController.experienciasProperty().bind(nv.experienciaProperty());
+//			conocimientoController.conocimientoProperty.bind(nv.conocimientoProperty());
 		}
 	}
 	
@@ -126,10 +133,8 @@ public class MainController implements Initializable {
     	Stage stage=(Stage)view.getScene().getWindow();
 
     	Alert alert=new Alert(AlertType.INFORMATION);
-    	
     	alert.initModality(Modality.APPLICATION_MODAL);
     	alert.initOwner(stage);
-    	
     	alert.setTitle("Acerca de MiCV");
     	alert.setHeaderText("Proyecto de Desarrollo de Interfaces, 2ºDAM, 2020");
     	alert.setContentText("Programa que permite guardar curriculums con datos recogidos "
@@ -149,14 +154,11 @@ public class MainController implements Initializable {
 				System.out.println("Ha ocurrido un error al guardar " + currentCvFile);
 				e.printStackTrace();
 			}
+    		if(currentCvFile!=null) 
+        		curriculumGuardado();
     	}
-    	if(currentCvFile!=null) 
-    		curriculumGuardado();
-    		
     	
     }
-
-
     
     @FXML
     private void onGuardarComoAction(ActionEvent event){

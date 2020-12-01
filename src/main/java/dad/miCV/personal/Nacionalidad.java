@@ -1,4 +1,4 @@
-package dad.miCV.nacionalidad;
+package dad.miCV.personal;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
