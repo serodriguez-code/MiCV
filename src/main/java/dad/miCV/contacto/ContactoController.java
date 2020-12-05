@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.SplitPane;
@@ -62,6 +63,8 @@ public class ContactoController implements Initializable {
     
     @FXML
     private Button eliminarWebB;
+    
+	private TextInputDialog dialog;
     
 	public ContactoController() throws IOException {
 		FXMLLoader loader=new FXMLLoader(getClass().getResource("/fxml/ContactoView.fxml"));
@@ -117,16 +120,18 @@ public class ContactoController implements Initializable {
     		contacto.get().getTelefonos().add(resultado.get());
 		eliminarTelefonoB.setDisable(telefonosTable.getItems().isEmpty());
     }
-    
+
 	@FXML
 	private void onAñadirCorreo(ActionEvent event) {
 		
-		TextInputDialog dialog=new TextInputDialog();
+		dialog=new TextInputDialog();
+		
     	Stage stage=(Stage)dialog.getDialogPane().getScene().getWindow();
     	stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
 		dialog.setTitle("Nuevo e-mail");
 		dialog.setHeaderText("Crear una nueva dirección de correo.");
 		dialog.setContentText("E-mail: ");
+		dialog.setResultConverter(b->onAñadirCorreoAction(b));
 		
 		Optional<String>resultado=dialog.showAndWait();
 		
@@ -138,18 +143,42 @@ public class ContactoController implements Initializable {
     	eliminarCorreoB.setDisable(correoTable.getItems().isEmpty());
     }
 
-    @FXML
+    private String onAñadirCorreoAction(ButtonType b) {
+    	String numero;
+    	if(b.getButtonData()==ButtonData.OK_DONE)
+    		if(dialog.getEditor().getText().isEmpty()) {
+    			alertAñadirCorreo();
+    		}	
+    		else {
+    			numero=dialog.getEditor().getText();	
+    			return numero;
+    		}
+		return null;
+	}
+    private void alertAñadirCorreo() {
+    	Stage stage=(Stage)view.getScene().getWindow();
+
+    	Alert alert=new Alert(AlertType.INFORMATION);	
+    	alert.initModality(Modality.APPLICATION_MODAL);
+    	alert.initOwner(stage);
+    	alert.setTitle("El formulario no esta completo");
+    	alert.setHeaderText("Error al intentar introducir un nuevo correo");
+    	alert.setContentText("Debe rellenar todos los campos");
+    	alert.showAndWait();
+    }
+
+	@FXML
     private void onAñadirWeb(ActionEvent event) {
 
-    	TextInputDialog dialog=new TextInputDialog("http://");
+    	dialog=new TextInputDialog("http://");
     	Stage stage=(Stage)dialog.getDialogPane().getScene().getWindow();
     	stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
 		dialog.setTitle("Nueva web");
 		dialog.setHeaderText("Crear una nueva dirección web.");
 		dialog.setContentText("URL: ");
+		dialog.setResultConverter(b->onAñadirWebAction(b));
 		
 		Optional<String>resultado=dialog.showAndWait();
-		
 		if(resultado.isPresent()) {
 			Web web=new Web();
 			web.setUrl(resultado.get());
@@ -159,9 +188,36 @@ public class ContactoController implements Initializable {
     	eliminarWebB.setDisable(webTable.getItems().isEmpty());
     }
     
-    @FXML
+    private String onAñadirWebAction(ButtonType b) {
+    	String web;
+    	if(b.getButtonData()==ButtonData.OK_DONE)
+    		if((dialog.getEditor().getText().isEmpty()) || (dialog.getEditor().getText().equals(new String("http://")))) {
+    			alertAñadirWeb();
+    		}	
+    		else {
+    			web=dialog.getEditor().getText();	
+    			return web;
+    		}
+		return null;
+	}
+    
+    private void alertAñadirWeb() {
+    	Stage stage=(Stage)view.getScene().getWindow();
+
+    	Alert alert=new Alert(AlertType.INFORMATION);	
+    	alert.initModality(Modality.APPLICATION_MODAL);
+    	alert.initOwner(stage);
+    	alert.setTitle("El formulario no esta completo");
+    	alert.setHeaderText("Error al intentar introducir una nueva web");
+    	alert.setContentText("Debe rellenar todos los campos al completo");
+    	alert.showAndWait();
+    }
+
+	@FXML
     private void onEliminarTelefono(ActionEvent event) {
-    	alertEliminarTelefono();
+		
+		if(!telefonosTable.getSelectionModel().isEmpty())
+    		alertEliminarTelefono();
 		eliminarTelefonoB.setDisable(telefonosTable.getItems().isEmpty());
     }
     
@@ -182,7 +238,9 @@ public class ContactoController implements Initializable {
     
     @FXML
     private void onEliminarCorreo(ActionEvent event) {
-    	alertEliminarCorreo();
+    	
+    	if(!correoTable.getSelectionModel().isEmpty())
+    		alertEliminarCorreo();
     	eliminarCorreoB.setDisable(correoTable.getItems().isEmpty());
     }
     private void alertEliminarCorreo() {
@@ -203,7 +261,8 @@ public class ContactoController implements Initializable {
 
     @FXML
     private void onEliminarWeb(ActionEvent event) {
-    	alertEliminarWeb();
+    	if(!webTable.getSelectionModel().isEmpty())
+    		alertEliminarWeb();
     	eliminarWebB.setDisable(webTable.getItems().isEmpty());
     }
 

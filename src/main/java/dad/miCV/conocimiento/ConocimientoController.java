@@ -139,8 +139,8 @@ public class ConocimientoController implements Initializable {
 
     @FXML
     void onEliminar(ActionEvent event) {
-
-    	alertEliminar();
+    	if(!table.getSelectionModel().isEmpty())
+    		alertEliminar();
     	eliminarConocimientoButton.setDisable(table.getItems().isEmpty());
 
     }

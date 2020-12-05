@@ -9,12 +9,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TelefonoDialogController extends Dialog<Telefono> implements Initializable {
@@ -56,14 +59,31 @@ public class TelefonoDialogController extends Dialog<Telefono> implements Initia
 	private Telefono onAñadirTelefonoAction(ButtonType b) {
 		
 		if(b.getButtonData()==ButtonData.OK_DONE) {
+			
 			Telefono telefono=new Telefono();
 			telefono.setNumero(NumeroTF.textProperty().get());
 			telefono.setTipoTelefono(añadirCB.getValue());
-			return telefono;
+			
+			if((!telefono.getNumero().isEmpty()) && (añadirCB.getValue()!=null)) {
+				return telefono;
+			}else {
+				alertAñadirTelefono();
+				return null;
+			}
 		}else
 			return null;
-		
-		
+	}
+	
+	private void alertAñadirTelefono() {
+    	Stage stage=(Stage)view.getScene().getWindow();
+
+    	Alert alert=new Alert(AlertType.INFORMATION);	
+    	alert.initModality(Modality.APPLICATION_MODAL);
+    	alert.initOwner(stage);
+    	alert.setTitle("El formulario no esta completo");
+    	alert.setHeaderText("Error al intentar introducir un nuevo telefono");
+    	alert.setContentText("Debe rellenar todos los campos");
+    	alert.showAndWait();
 	}
     
     

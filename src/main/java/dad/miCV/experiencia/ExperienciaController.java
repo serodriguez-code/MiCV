@@ -116,7 +116,8 @@ public class ExperienciaController implements Initializable {
 
     @FXML
     private void onEliminar(ActionEvent event) {
-    	alertEliminar();
+    	if(!table.getSelectionModel().isEmpty())
+    		alertEliminar();
     	eliminarButton.setDisable(table.getItems().isEmpty());
     
     }

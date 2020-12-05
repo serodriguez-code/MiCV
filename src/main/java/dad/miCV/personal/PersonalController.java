@@ -18,15 +18,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class PersonalController implements Initializable {
@@ -163,9 +167,28 @@ public class PersonalController implements Initializable {
     
 	@FXML
     private void onBorrarNacionalidadBAction(ActionEvent event) {
-		personal.get().nacionalidadesProperty().remove(nacionalidadseleccionada.get());
-    	borrarNacionalidadB.setDisable(nacionalidadesLV.getItems().isEmpty());
+    	
+		if(!nacionalidadesLV.getSelectionModel().isEmpty())
+			alertBorrarNacionalidad();
+		
+		borrarNacionalidadB.setDisable(nacionalidadesLV.getItems().isEmpty());
     }
+	private void alertBorrarNacionalidad() {
+		
+		Stage stage=(Stage)view.getScene().getWindow();
+    	
+    	Alert alert=new Alert(AlertType.CONFIRMATION);
+    	alert.initModality(Modality.APPLICATION_MODAL);
+    	alert.initOwner(stage);
+    	alert.setTitle("Eliminar nacionalidad");
+    	alert.setHeaderText("Va a borrar la nacionalidad");
+    	alert.setContentText("¿Está seguro de que quiere eliminarla?");
+    	
+    	Optional<ButtonType>resultado=alert.showAndWait();
+    	if(resultado.get()==ButtonType.OK)
+    		personal.get().nacionalidadesProperty().remove(nacionalidadseleccionada.get());
+	}
+	
     
     public GridPane getView() {
     	return this.view;
