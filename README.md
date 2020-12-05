@@ -89,6 +89,6 @@ Para añadir un idioma se abrirá otra ventana:
 
 ![](RecursosREADME.md/image14.png)
 
-Para eliminar un conocimiento, se seleccionará de la tabla, se pulsará el botón "Eliminar" y se deberá pedir confirmación antes de eliminarlo.
+Para eliminar un conocimiento, se seleccionará de la tabla, se pulsará el botón *"Eliminar"* y se deberá pedir confirmación antes de eliminarlo.
 
 Los datos se podrán editar directamente sobre la misma tabla.
