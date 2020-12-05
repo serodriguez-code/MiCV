@@ -79,16 +79,30 @@ Desde aquí se gestionan todos los datos de experiencia laboral del *"CV"*. Se i
 
 ![](RecursosREADME.md/image12.png)
 
-Para añadir un conocimiento/habilidad en el apartado de conocimientos se debe abrir una ventana como la siguiente:
+Para añadir una experiencia laboral en el apartado de experiencia se debe abrir una ventana como la siguiente:
 
 ![](RecursosREADME.md/image13.png)
+
+Para eliminar una experiencia, se seleccionará de la tabla, se pulsará el botón *"Eliminar"* y se deberá pedir confirmación antes de eliminarla.
+
+Los datos se podrán editar directamente sobre la misma tabla.
+
+- __PESTAÑA: CONOCIMIENTOS__
+
+Desde aquí se gestionan todos los datos de conocimientos/habilidades del *"CV"*. Se implementará un controlador (ConocimientosController) y una vista (ConocimientosView) a parte para esta pestaña, y será *"MainController"* quien meta a *"ConocimientosView"* en la pestaña correspondiente de *"MainView"*.
+
+![](RecursosREADME.md/image14.png)
+
+Para añadir un conocimiento/habilidad en el apartado de conocimientos se debe abrir una ventana como la siguiente:
+
+![](RecursosREADME.md/image15.png)
 
 El botón *"X"* reiniciará el combo de nivel y lo dejará vacío (nulo).
 
 Para añadir un idioma se abrirá otra ventana:
 
-![](RecursosREADME.md/image14.png)
+![](RecursosREADME.md/image16.png)
 
-Para eliminar un conocimiento, se seleccionará de la tabla, se pulsará el botón *"Eliminar"* y se deberá pedir confirmación antes de eliminarlo.
+Para eliminar un conocimiento, se seleccionará de la tabla, se pulsará el botón "Eliminar" y se deberá pedir confirmación antes de eliminarlo.
 
 Los datos se podrán editar directamente sobre la misma tabla.
