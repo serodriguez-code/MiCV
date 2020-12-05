@@ -5,11 +5,10 @@ import javafx.beans.property.StringProperty;
 
 public class Web {
 
-	StringProperty url=new SimpleStringProperty();
+	private StringProperty url=new SimpleStringProperty();
 	
-	public Web() {
-		
-	}
+	public Web() {}
+	
 	public Web(String url) {
 		this.url.set(url);	
 	}

@@ -24,7 +24,7 @@ public class Nacionalidad {
 	}
 	@Override
 	public String toString() {
-		return "Nacionalidad [denominacion=" + denominacion + "]";
+		return ""+denominacion.get();
 	}
 	
 }

@@ -5,11 +5,10 @@ import javafx.beans.property.StringProperty;
 
 public class Email {
 
-	StringProperty direccion=new SimpleStringProperty();
+	private StringProperty direccion=new SimpleStringProperty();
 	
-	public Email() {
-		
-	}
+	public Email() {}
+	
 	public Email(String direccion) {
 		this.direccion.set(direccion);
 	}

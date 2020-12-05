@@ -1,6 +1,7 @@
 package dad.miCV.cv;
 
 import dad.miCV.conocimiento.Conocimiento;
+import dad.miCV.contacto.Contacto;
 import dad.miCV.experiencia.Experiencia;
 import dad.miCV.formacion.Formacion;
 import dad.miCV.personal.Personal;
@@ -14,13 +15,10 @@ import javafx.collections.ObservableList;
 public class CV {
 	
 	private ObjectProperty<Personal> personal=new SimpleObjectProperty<Personal>(new Personal());
+	private ObjectProperty<Contacto> contacto=new SimpleObjectProperty<Contacto>(new Contacto());
 	private ListProperty <Formacion> formaciones=new SimpleListProperty<Formacion>(FXCollections.observableArrayList());
-//	private ListProperty <Conocimiento> conocimiento=new SimpleListProperty<Conocimiento>(FXCollections.observableArrayList()); ????
+	private ListProperty <Conocimiento> conocimiento=new SimpleListProperty<Conocimiento>(FXCollections.observableArrayList()); 
 	private ListProperty<Experiencia> experiencia=new SimpleListProperty<Experiencia>(FXCollections.observableArrayList());
-
-
-	//TODO Contacto titulo experiencia conocimiento
-	
 	
 	public final ObjectProperty<Personal> personalProperty() {
 		return this.personal;
@@ -69,6 +67,42 @@ public class CV {
 	public final void setExperiencia(final ObservableList<Experiencia> experiencia) {
 		this.experienciaProperty().set(experiencia);
 	}
+
+
+	public final ListProperty<Conocimiento> conocimientoProperty() {
+		return this.conocimiento;
+	}
+	
+
+
+	public final ObservableList<Conocimiento> getConocimiento() {
+		return this.conocimientoProperty().get();
+	}
+	
+
+
+	public final void setConocimiento(final ObservableList<Conocimiento> conocimiento) {
+		this.conocimientoProperty().set(conocimiento);
+	}
+
+
+	public final ObjectProperty<Contacto> contactoProperty() {
+		return this.contacto;
+	}
+	
+
+
+	public final Contacto getContacto() {
+		return this.contactoProperty().get();
+	}
+	
+
+
+	public final void setContacto(final Contacto contacto) {
+		this.contactoProperty().set(contacto);
+	}
+	
+	
 	
 
 

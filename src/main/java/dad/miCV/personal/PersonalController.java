@@ -1,23 +1,33 @@
 package dad.miCV.personal;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.fxml.Initializable;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class PersonalController implements Initializable {
 
@@ -41,9 +51,15 @@ public class PersonalController implements Initializable {
 	@FXML
 	private ComboBox<String> paisCB;
 	
+	private ListProperty<String>csvPaisesList=new SimpleListProperty<String>(FXCollections.observableArrayList());
+	
+	private BufferedReader csvReader; 
 	@FXML
 	private ListView<Nacionalidad> nacionalidadesLV;
 	
+	private ListProperty<Nacionalidad>csvNacionalidadesList=new SimpleListProperty<Nacionalidad>(FXCollections.observableArrayList());
+	private ObjectProperty<Nacionalidad> nacionalidadseleccionada=new SimpleObjectProperty<>();
+
 	@FXML
 	private Button nuevaNacionalidadB,borrarNacionalidadB;
 	
@@ -55,7 +71,48 @@ public class PersonalController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		nacionalidadseleccionada.bind(nacionalidadesLV.getSelectionModel().selectedItemProperty());
+		
+		cargaPaisesCsv();
+		cargaNacionalidadesCsv();
 		personal.addListener((o,ov,nv)->onPersonalChanged(o,ov,nv));	
+    	borrarNacionalidadB.setDisable(nacionalidadesLV.getItems().isEmpty());
+	}
+	
+	private void cargaPaisesCsv() {
+		 
+		try {
+			
+			String line;
+			csvReader=new BufferedReader(new FileReader("src/main/resources/csv/paises.csv",Charset.forName("UTF-8")));
+			
+			while((line=csvReader.readLine())!=null)
+				csvPaisesList.add(line);
+			
+			csvReader.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		paisCB.setItems(csvPaisesList);
+	}
+	
+	private void cargaNacionalidadesCsv() {
+		try {
+			String line;
+			csvReader=new BufferedReader(new FileReader("src/main/resources/csv/nacionalidades.csv",Charset.forName("UTF-8")));
+			
+			while((line=csvReader.readLine())!=null) {
+				Nacionalidad nacionalidad=new Nacionalidad(line);
+				csvNacionalidadesList.add(nacionalidad);
+			}
+			csvReader.close();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
     private void onPersonalChanged(ObservableValue<? extends Personal> o, Personal ov, Personal nv) {
@@ -81,17 +138,33 @@ public class PersonalController implements Initializable {
     		direccionTA.textProperty().bindBidirectional(nv.direccionProperty());
     		paisCB.valueProperty().bindBidirectional(nv.paisProperty());
     		nacionalidadesLV.itemsProperty().bindBidirectional(nv.nacionalidadesProperty());
-    	}
+    	}   	
+    	
+    	borrarNacionalidadB.setDisable(nacionalidadesLV.getItems().isEmpty());
 	}
-
-	@FXML
-    private void onBorrarNacionalidadBAction(ActionEvent event) {
-
-    }
 
     @FXML
     private void onNuevaNacionalidadBAction(ActionEvent event) {
 
+    	ChoiceDialog<Nacionalidad> dialog=new ChoiceDialog<>(csvNacionalidadesList.get(0),csvNacionalidadesList);
+    	Stage stage=(Stage)dialog.getDialogPane().getScene().getWindow();
+    	stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
+    	dialog.setTitle("Nueva nacionalidad");
+    	dialog.setHeaderText("Añadir nacionalidad");
+    	dialog.setContentText("Seleccione una nacionalidad");
+
+    	Optional<Nacionalidad> nacionalidadElegida=dialog.showAndWait();
+    	
+    	if(nacionalidadElegida.isPresent()) {
+    		personal.get().nacionalidadesProperty().add(nacionalidadElegida.get());
+        	borrarNacionalidadB.setDisable(nacionalidadesLV.getItems().isEmpty());
+    	}
+    }
+    
+	@FXML
+    private void onBorrarNacionalidadBAction(ActionEvent event) {
+		personal.get().nacionalidadesProperty().remove(nacionalidadseleccionada.get());
+    	borrarNacionalidadB.setDisable(nacionalidadesLV.getItems().isEmpty());
     }
     
     public GridPane getView() {

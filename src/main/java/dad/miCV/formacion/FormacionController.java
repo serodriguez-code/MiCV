@@ -3,22 +3,23 @@ package dad.miCV.formacion;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,7 +39,7 @@ public class FormacionController implements Initializable {
 
     @FXML
     private TableView<Formacion> table;
-
+    
     @FXML
     private TableColumn<Formacion, LocalDate> desdeCol;
 
@@ -50,7 +51,9 @@ public class FormacionController implements Initializable {
 
     @FXML
     private TableColumn<Formacion, String> organizadorCol;
-
+    
+    @FXML
+    private Button eliminarButton;
 
     //View de añadir nueva formación
 	
@@ -81,8 +84,9 @@ public class FormacionController implements Initializable {
 		desdeCol.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
 		hastaCol.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
 		denominacionCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		organizadorCol.setCellFactory(TextFieldTableCell.forTableColumn());
+		organizadorCol.setCellFactory(TextFieldTableCell.forTableColumn());	
 		
+		eliminarButton.setDisable(table.getItems().isEmpty());	
 	}
 	public HBox getView() {
 		return view;
@@ -91,6 +95,7 @@ public class FormacionController implements Initializable {
     @FXML
     private void onAñadir(ActionEvent event) {
     	try {
+    		
     		FXMLLoader loader=new FXMLLoader(getClass().getResource("/fxml/addFormacionView.fxml"));
     		loader.setController(this);
         	
@@ -109,10 +114,25 @@ public class FormacionController implements Initializable {
 
     @FXML
     private void onEliminar(ActionEvent event) {
-    	//TODO Eliminar
+    	alertEliminar();
+    	eliminarButton.setDisable(table.getItems().isEmpty());
+    }
+      
+    private void alertEliminar() {
+    	Stage stage=(Stage)view.getScene().getWindow();
+    	
+    	Alert alert=new Alert(AlertType.CONFIRMATION);
+    	alert.initModality(Modality.APPLICATION_MODAL);
+    	alert.initOwner(stage);
+    	alert.setTitle("Eliminar formación");
+    	alert.setHeaderText("Va a borrar la formación");
+    	alert.setContentText("¿Está seguro de que quiere borrarla?");
+    	
+    	Optional<ButtonType>resultado=alert.showAndWait();
+    	if(resultado.get()==ButtonType.OK)
+    		table.getItems().removeAll(table.getSelectionModel().getSelectedItem());	
     }
     
-    //TODO Almacenar los datos de la edicion de la tabla con un listener o algo
     
     //View de añadir formación
     
@@ -136,6 +156,7 @@ public class FormacionController implements Initializable {
 
     		formaciones.add(formacion);
         	stageFormacion.close();
+        	eliminarButton.setDisable(table.getItems().isEmpty());
     	}
     	else
     		alertFormacion();
@@ -166,5 +187,14 @@ public class FormacionController implements Initializable {
 	public final void setFormaciones(final ObservableList<Formacion> formaciones) {
 		this.formacionesProperty().set(formaciones);
 	}
+
+	public Button getEliminarButton() {
+		return eliminarButton;
+	}
+
+	public TableView<Formacion> getTable() {
+		return table;
+	}
+
 	
 }

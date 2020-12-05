@@ -3,6 +3,7 @@ package dad.miCV.experiencia;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ListProperty;
@@ -17,6 +18,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -49,6 +52,9 @@ public class ExperienciaController implements Initializable {
     @FXML
     private TableColumn<Experiencia, String> empleadorCol;
     
+    @FXML
+    private Button eliminarButton;
+    
     //View de añadir nueva Experiencia
     
     private Stage stageExperiencia;
@@ -80,6 +86,8 @@ public class ExperienciaController implements Initializable {
 		hastaCol.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
 		denominacionCol.setCellFactory(TextFieldTableCell.forTableColumn());
 		empleadorCol.setCellFactory(TextFieldTableCell.forTableColumn());
+		
+		eliminarButton.setDisable(table.getItems().isEmpty());
 
 	}
     public HBox getView() {
@@ -108,12 +116,27 @@ public class ExperienciaController implements Initializable {
 
     @FXML
     private void onEliminar(ActionEvent event) {
-    	//TODO Eliminar
+    	alertEliminar();
+    	eliminarButton.setDisable(table.getItems().isEmpty());
+    
     }
     
-    //TODO Almacenar los datos de la edicion de la tabla con un listener o algo
+    private void alertEliminar() {
+    	Stage stage=(Stage)view.getScene().getWindow();
+    	
+    	Alert alert=new Alert(AlertType.CONFIRMATION);
+    	alert.initModality(Modality.APPLICATION_MODAL);
+    	alert.initOwner(stage);
+    	alert.setTitle("Eliminar experiencia");
+    	alert.setHeaderText("¿Va a borrar la experiencia?");
+    	alert.setContentText("¿Está seguro de que quiere borrarla?");
+    	
+    	Optional<ButtonType>resultado=alert.showAndWait();
+    	if(resultado.get()==ButtonType.OK)
+    		table.getItems().removeAll(table.getSelectionModel().getSelectedItems());
+    }
     
-    //Botones de añadir experiencia
+    //View de añadir experiencia
     @FXML
     private void onCancelarButton(ActionEvent event) {
     	stageExperiencia.close();
@@ -134,6 +157,7 @@ public class ExperienciaController implements Initializable {
 
     		experiencias.add(experiencia);
     		stageExperiencia.close();
+    		eliminarButton.setDisable(table.getItems().isEmpty());
     	}
     	else
     		alertExperiencia();
@@ -164,7 +188,13 @@ public class ExperienciaController implements Initializable {
 	public final void setExperiencias(final ObservableList<Experiencia> experiencias) {
 		this.experienciasProperty().set(experiencias);
 	}
-	
-    
+
+	public TableView<Experiencia> getTable() {
+		return table;
+	}
+
+	public Button getEliminarButton() {
+		return eliminarButton;
+	}
 
 }

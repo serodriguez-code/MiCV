@@ -88,20 +88,35 @@ public class MainController implements Initializable {
 	 */
 	private void onCVChanged(ObservableValue<? extends CV> o, CV ov, CV nv) {
 		if(ov !=null) {
-			//TODO desbindear controladores
+
 			personalController.personalProperty().unbind();
-//			contactoController.contactoProperty().unbind();
+			contactoController.contactoProperty().unbind();
 			formacionController.formacionesProperty().unbind();
 			experienciaController.experienciasProperty().unbind();
-//			conocimientoController.conocimientoProperty().unbind();
+			conocimientoController.conocimientosProperty().unbind();
 		}
 		if(nv!=null) { 
-			//TODO bindear controladores
+			
 			personalController.personalProperty().bind(nv.personalProperty());
-//			contactoController.contactoProperty().bind(nv.contactoProperty());
+			contactoController.contactoProperty().bind(nv.contactoProperty());
+			contactoController.getEliminarTelefonoB()
+									.setDisable(contactoController.getTelefonosTable().getItems().isEmpty());
+			contactoController.getEliminarCorreoB()
+									.setDisable(contactoController.getCorreoTable().getItems().isEmpty());
+			contactoController.getEliminarWebB()
+									.setDisable(contactoController.getWebTable().getItems().isEmpty());
+			
 			formacionController.formacionesProperty().bind(nv.formacionesProperty());
+			formacionController.getEliminarButton()
+									.setDisable(formacionController.getTable().getItems().isEmpty());
+			
 			experienciaController.experienciasProperty().bind(nv.experienciaProperty());
-//			conocimientoController.conocimientoProperty.bind(nv.conocimientoProperty());
+			experienciaController.getEliminarButton()
+									.setDisable(formacionController.getTable().getItems().isEmpty());
+			
+			conocimientoController.conocimientosProperty().bind(nv.conocimientoProperty());
+			conocimientoController.getEliminarConocimientoButton()
+									.setDisable(conocimientoController.getTable().getItems().isEmpty());
 		}
 	}
 	
